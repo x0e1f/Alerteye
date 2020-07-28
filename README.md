@@ -44,25 +44,25 @@ Configure alerteye with config.json file:
 
 ```json
 {
-    "telegram_bot_token": "xxxx",
-	"telegram_chat_id": "xxxx",
-	"collector_time": 60,
-	"send_time": 30,
-	"topics": [
-		{
-			"name": "Coronavirus",
-			"keywords": [
-				"Coronavirus",
-				"Covid-19"
-			]
-		}
-	],
-	"sources": [
-		{
-			"name": "Al Jazeera",
-			"url": "https://www.aljazeera.com/xml/rss/all.xml"
-		}
-	]
+  "telegram_bot_token": "xxxx",
+  "telegram_chat_id": "xxxx",
+  "collector_time": 60,
+  "send_time": 30,
+  "topics": [
+    {
+      "name": "Coronavirus",
+      "keywords": [
+        "Coronavirus",
+        "Covid-19"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "name": "Al Jazeera",
+      "url": "https://www.aljazeera.com/xml/rss/all.xml"
+    }
+  ]
 }
 ```
 
