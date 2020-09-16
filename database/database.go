@@ -28,8 +28,8 @@ OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import (
-	"github.com/0x8b30cc/Alerteye/common"
 	"github.com/jinzhu/gorm"
+	"github.com/x0e1f/Alerteye/common"
 	// The following is required for GORM sqlite
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )

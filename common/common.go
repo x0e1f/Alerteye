@@ -39,7 +39,7 @@ const BANNER = `
 ██╔══██║██║     ██╔══╝  ██╔══██╗   ██║   ██╔══╝    ╚██╔╝  ██╔══╝  
 ██║  ██║███████╗███████╗██║  ██║   ██║   ███████╗   ██║   ███████╗
 ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝   ╚═╝   ╚══════╝
-Alerteye | 0x8b30cc | MIT License
+Alerteye | x0e1f | MIT License
 `
 
 // PrintBanner :: Print Alerteye banner

@@ -28,11 +28,11 @@ OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import (
-	"github.com/0x8b30cc/Alerteye/collector"
-	"github.com/0x8b30cc/Alerteye/common"
-	"github.com/0x8b30cc/Alerteye/configs"
-	"github.com/0x8b30cc/Alerteye/database"
-	"github.com/0x8b30cc/Alerteye/telegram"
+	"github.com/x0e1f/Alerteye/collector"
+	"github.com/x0e1f/Alerteye/common"
+	"github.com/x0e1f/Alerteye/configs"
+	"github.com/x0e1f/Alerteye/database"
+	"github.com/x0e1f/Alerteye/telegram"
 	"io"
 	"log"
 	"os"

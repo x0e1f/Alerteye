@@ -29,7 +29,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 import (
 	"encoding/json"
-	"github.com/0x8b30cc/Alerteye/common"
+	"github.com/x0e1f/Alerteye/common"
 	"io/ioutil"
 	"log"
 	"os"

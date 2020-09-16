@@ -28,9 +28,9 @@ OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import (
-	"github.com/0x8b30cc/Alerteye/configs"
-	"github.com/0x8b30cc/Alerteye/database"
 	"github.com/go-telegram-bot-api/telegram-bot-api"
+	"github.com/x0e1f/Alerteye/configs"
+	"github.com/x0e1f/Alerteye/database"
 	"log"
 	"strconv"
 	"time"

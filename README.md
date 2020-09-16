@@ -11,14 +11,14 @@ Alerteye is a simple and lightweight RSS reader that sends alerts about topics y
 ## Compile
 Compile for the current system
 ```
-git clone https://github.com/0x8b30cc/Alerteye
+git clone https://github.com/x0e1f/Alerteye
 cd Alerteye
 make
 ```
 Cross compile for raspberry pi
 
 ```
-git clone https://github.com/0x8b30cc/Alerteye
+git clone https://github.com/x0e1f/Alerteye
 cd Alerteye
 sudo apt install gcc-arm-linux-gnueabi
 make rpi
