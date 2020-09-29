@@ -46,8 +46,10 @@ func StartConsumer(dbPath string, configs *configs.Config) {
 		if err == nil {
 			alert, _ := database.AlertToSend(dbPath)
 			if alert.URL != "" {
-				messageBody := "[" + alert.Topic + "]\n"
-				messageBody += "[" + alert.Source + "]\n"
+				messageBody := "[" + alert.Source + "]\n"
+				if alert.Topic != "" {
+					messageBody += "[" + alert.Topic + "]\n"
+				}
 				messageBody += "[" + alert.Title + "]\n"
 				messageBody += alert.URL
 				msg := tgbotapi.NewMessage(ChatID, messageBody)

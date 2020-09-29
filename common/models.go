@@ -38,9 +38,11 @@ type Topic struct {
 // Source :: Source struct
 // Name: The name of the source
 // URL: URL address of the source
+// Filtered: Setup topic filtering on source
 type Source struct {
-	Name string `json:"name"`
-	URL  string `json:"url"`
+	Name     string `json:"name"`
+	URL      string `json:"url"`
+	Filtered bool   `json:"filtered"`
 }
 
 // Alert :: Alert struct

@@ -41,8 +41,8 @@ import (
 // StartCollector :: Start Alerteye collector
 func StartCollector(dbPath string, configs *configs.Config) {
 	log.Print("Alerteye collector started")
-
 	fp := gofeed.NewParser()
+
 	for {
 		sources := configs.Sources
 		for i := 0; i < len(sources); i++ {
@@ -63,19 +63,29 @@ func StartCollector(dbPath string, configs *configs.Config) {
 					URL:         items[j].Link,
 				}
 
+				if !sources[i].Filtered {
+					topic := common.Topic{
+						Name:     "",
+						Keywords: []string{},
+					}
+					
+					err = newAlert(dbPath, &alert, &topic)
+					if err != nil {
+						log.Print(err)
+					}
+
+					continue
+				}
+
 				topic, err := checkTopic(configs, &alert)
 				if err != nil {
 					log.Print(err)
 				}
+
 				if topic != nil {
-					alertExist, _ := database.AlertExist(dbPath, alert.URL)
-					if !alertExist {
-						alert.Topic = *topic
-						err = database.NewAlert(dbPath, &alert)
-						if err != nil {
-							log.Print(err)
-						}
-						log.Print("(" + topic.Name + ") " + alert.URL)
+					err = newAlert(dbPath, &alert, topic)
+					if err != nil {
+						log.Print(err)
 					}
 				}
 			}
@@ -83,6 +93,27 @@ func StartCollector(dbPath string, configs *configs.Config) {
 
 		time.Sleep(time.Duration(configs.CollectorTime) * time.Minute)
 	}
+}
+
+// newAlert :: Create a new alert
+func newAlert(dbPath string, alert *common.Alert, topic *common.Topic) error {
+	alertExist, _ := database.AlertExist(dbPath, alert.URL)
+
+	if !alertExist {
+		alert.Topic = *topic
+		err := database.NewAlert(dbPath, alert)
+		if err != nil {
+			return err
+		}
+
+		if topic.Name != "" {
+			log.Print("(" + topic.Name + ") " + alert.URL)
+		} else {
+			log.Print("(Unfiltered) " + alert.URL)
+		}		
+	}
+
+	return nil
 }
 
 // checkTopic :: Check if collected alert can be associated with a topic
@@ -131,7 +162,6 @@ func containsKeyword(title string, description string, keyword string) bool {
 			return true
 		}
 	}
-
 	parsedDesc := re.FindAllString(description, -1)
 	for i := 0; i < len(parsedDesc); i++ {
 		if parsedDesc[i] == keyword {

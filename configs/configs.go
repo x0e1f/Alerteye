@@ -83,8 +83,9 @@ func initConfigurations(confFilePath string) error {
 		Keywords: []string{"Coronavirus", "Covid-19"},
 	}
 	source := common.Source{
-		Name: "Al Jazeera",
-		URL:  "https://www.aljazeera.com/xml/rss/all.xml",
+		Name:     "Al Jazeera",
+		URL:      "https://www.aljazeera.com/xml/rss/all.xml",
+		Filtered: true,
 	}
 	config := Config{
 		BotToken:      "xxxx",

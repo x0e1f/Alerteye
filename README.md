@@ -60,13 +60,20 @@ Configure alerteye with config.json file:
   "sources": [
     {
       "name": "Al Jazeera",
-      "url": "https://www.aljazeera.com/xml/rss/all.xml"
+      "url": "https://www.aljazeera.com/xml/rss/all.xml",
+      "filtered": true
+    },
+    {
+      "name": "Packet Storm",
+      "url": "https://rss.packetstormsecurity.com/news/",
+      "filtered": false
     }
   ]
 }
 ```
+If you add a new source with the value of "filtered" to false, you will receive every new item in the feed without filtering for any topic. This can be very useful when you are sure that every new article from that source will interest you, but be sure to configure collect and send timing in order to avoid spam or saturating the send queue.
 
-Get your chat id with the following URL:
+Get your Telegram chat id with the following URL:
 
 ```
 https://api.telegram.org/bot<bot-token>/getUpdates
