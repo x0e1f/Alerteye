@@ -53,7 +53,6 @@ type Config struct {
 
 // LoadConfigurations :: Load configuration file
 func LoadConfigurations(confFilePath string) (Config, error) {
-
 	if _, err := os.Stat(confFilePath); os.IsNotExist(err) {
 		err = initConfigurations(confFilePath)
 		if err != nil {
@@ -73,24 +72,20 @@ func LoadConfigurations(confFilePath string) (Config, error) {
 	}
 
 	return config, nil
-
 }
 
 // initConfigurations :: Initialize configuration file with defaults
 func initConfigurations(confFilePath string) error {
-
 	log.Print("Initializing configuration file...")
 
 	topic := common.Topic{
 		Name:     "Coronavirus",
 		Keywords: []string{"Coronavirus", "Covid-19"},
 	}
-
 	source := common.Source{
 		Name: "Al Jazeera",
 		URL:  "https://www.aljazeera.com/xml/rss/all.xml",
 	}
-
 	config := Config{
 		BotToken:      "xxxx",
 		ChatID:        "xxxx",
@@ -101,7 +96,6 @@ func initConfigurations(confFilePath string) error {
 	}
 
 	configJSON, _ := json.MarshalIndent(config, "", "\t")
-
 	configFile, err := os.OpenFile(
 		confFilePath,
 		os.O_CREATE|os.O_APPEND|os.O_WRONLY,
@@ -115,5 +109,4 @@ func initConfigurations(confFilePath string) error {
 	configFile.Write(configJSON)
 
 	return nil
-
 }

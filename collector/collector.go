@@ -40,25 +40,20 @@ import (
 
 // StartCollector :: Start Alerteye collector
 func StartCollector(dbPath string, configs *configs.Config) {
-
 	log.Print("Alerteye collector started")
+
 	fp := gofeed.NewParser()
-
 	for {
-
 		sources := configs.Sources
-
 		for i := 0; i < len(sources); i++ {
-
 			feed, err := fp.ParseURL(sources[i].URL)
 			if err != nil {
 				log.Print("Collector error: ", err)
 				continue
 			}
+
 			items := feed.Items
-
 			for j := 0; j < len(items); j++ {
-
 				alert := common.Alert{
 					Date:        items[j].Published,
 					Title:       items[j].Title,
@@ -72,9 +67,7 @@ func StartCollector(dbPath string, configs *configs.Config) {
 				if err != nil {
 					log.Print(err)
 				}
-
 				if topic != nil {
-
 					alertExist, _ := database.AlertExist(dbPath, alert.URL)
 					if !alertExist {
 						alert.Topic = *topic
@@ -84,61 +77,47 @@ func StartCollector(dbPath string, configs *configs.Config) {
 						}
 						log.Print("(" + topic.Name + ") " + alert.URL)
 					}
-
 				}
-
 			}
-
 		}
 
 		time.Sleep(time.Duration(configs.CollectorTime) * time.Minute)
-
 	}
-
 }
 
 // checkTopic :: Check if collected alert can be associated with a topic
 func checkTopic(configs *configs.Config, alert *common.Alert) (*common.Topic, error) {
-
 	topics := configs.Topics
 	suggested := make(map[*common.Topic]int)
 
 	for i := 0; i < len(topics); i++ {
-
 		keywords := topics[i].Keywords
-
 		score := 0
 		for j := 0; j < len(keywords); j++ {
 			if containsKeyword(alert.Title, alert.Description, keywords[j]) {
 				score++
 			}
 		}
-
 		suggested[&topics[i]] = score
-
 	}
 
 	var finalTopic *common.Topic
 	maxScore := 0
-
 	for topic, score := range suggested {
 		if score > maxScore {
 			maxScore = score
 			finalTopic = topic
 		}
 	}
-
 	if maxScore <= 0 {
 		return nil, nil
 	}
 
 	return finalTopic, nil
-
 }
 
 // containsKeyword :: Check if the article contains a keyword
 func containsKeyword(title string, description string, keyword string) bool {
-
 	title = strings.ToLower(title)
 	description = strings.ToLower(description)
 	keyword = strings.ToLower(keyword)
@@ -147,7 +126,6 @@ func containsKeyword(title string, description string, keyword string) bool {
 	re := regexp.MustCompile(regex)
 
 	parsedTitle := re.FindAllString(title, -1)
-
 	for i := 0; i < len(parsedTitle); i++ {
 		if parsedTitle[i] == keyword {
 			return true
@@ -155,7 +133,6 @@ func containsKeyword(title string, description string, keyword string) bool {
 	}
 
 	parsedDesc := re.FindAllString(description, -1)
-
 	for i := 0; i < len(parsedDesc); i++ {
 		if parsedDesc[i] == keyword {
 			return true
@@ -163,5 +140,4 @@ func containsKeyword(title string, description string, keyword string) bool {
 	}
 
 	return false
-
 }

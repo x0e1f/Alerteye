@@ -47,19 +47,16 @@ type Alert struct {
 
 // ConnectDatabase :: Connect to sqlite database
 func ConnectDatabase(dbPath string) (*gorm.DB, error) {
-
 	db, err := gorm.Open("sqlite3", dbPath)
 	if err != nil {
 		return nil, err
 	}
 
 	return db, nil
-
 }
 
 // Migrations :: Database migrations
 func Migrations(dbPath string) error {
-
 	db, err := ConnectDatabase(dbPath)
 	if err != nil {
 		return err
@@ -69,12 +66,10 @@ func Migrations(dbPath string) error {
 	db.AutoMigrate(&Alert{})
 
 	return nil
-
 }
 
 //NewAlert :: Create a new alert
 func NewAlert(dbPath string, alert *common.Alert) error {
-
 	db, err := ConnectDatabase(dbPath)
 	if err != nil {
 		return err
@@ -89,16 +84,13 @@ func NewAlert(dbPath string, alert *common.Alert) error {
 		URL:    alert.URL,
 		Sent:   -1,
 	}
-
 	db.Create(&entry)
 
 	return nil
-
 }
 
 // AlertSent :: Mark an alert as sent
 func AlertSent(dbPath string, url string) error {
-
 	db, err := ConnectDatabase(dbPath)
 	if err != nil {
 		return err
@@ -106,22 +98,18 @@ func AlertSent(dbPath string, url string) error {
 	defer db.Close()
 
 	alert := Alert{}
-
 	db.Where(Alert{
 		URL: url,
 	}).First(&alert)
 
 	alert.Sent = 1
-
 	db.Save(&alert)
 
 	return nil
-
 }
 
 // AlertExist :: Check if an alert already exist
 func AlertExist(dbPath string, url string) (bool, error) {
-
 	db, err := ConnectDatabase(dbPath)
 	if err != nil {
 		return true, err
@@ -129,22 +117,18 @@ func AlertExist(dbPath string, url string) (bool, error) {
 	defer db.Close()
 
 	alert := Alert{}
-
 	db.Where(Alert{
 		URL: url,
 	}).First(&alert)
-
 	if alert.URL == "" {
 		return false, nil
 	}
 
 	return true, nil
-
 }
 
 // AlertToSend :: Retrieve the next alert that need to be sent
 func AlertToSend(dbPath string) (*Alert, error) {
-
 	db, err := ConnectDatabase(dbPath)
 	if err != nil {
 		return &Alert{}, err
@@ -152,11 +136,9 @@ func AlertToSend(dbPath string) (*Alert, error) {
 	defer db.Close()
 
 	alert := Alert{}
-
 	db.Where(Alert{
 		Sent: -1,
 	}).First(&alert)
 
 	return &alert, nil
-
 }

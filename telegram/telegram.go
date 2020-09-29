@@ -38,17 +38,12 @@ import (
 
 // StartConsumer :: Start Alerteye Telegram consumer
 func StartConsumer(dbPath string, configs *configs.Config) {
-
 	log.Print("Telegram consumer started")
-
 	ChatID, _ := strconv.ParseInt(configs.ChatID, 10, 64)
 
 	for {
-
 		bot, err := tgbotapi.NewBotAPI(configs.BotToken)
-
 		if err == nil {
-
 			alert, _ := database.AlertToSend(dbPath)
 			if alert.URL != "" {
 				messageBody := "[" + alert.Topic + "]\n"
@@ -60,13 +55,10 @@ func StartConsumer(dbPath string, configs *configs.Config) {
 				database.AlertSent(dbPath, alert.URL)
 				log.Print("[Telegram] " + alert.Title)
 			}
-
 		} else {
 			log.Print("Telegram error: ", err)
 		}
 
 		time.Sleep(time.Duration(configs.SendTime) * time.Minute)
-
 	}
-
 }

@@ -40,7 +40,6 @@ import (
 )
 
 func main() {
-
 	rootDir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
 	dataDir := filepath.Join(rootDir, "data")
 	dbPath := filepath.Join(dataDir, "alerteye.db")
@@ -80,5 +79,4 @@ func main() {
 
 	go telegram.StartConsumer(dbPath, &configs)
 	collector.StartCollector(dbPath, &configs)
-
 }
