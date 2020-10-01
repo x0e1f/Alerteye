@@ -94,7 +94,7 @@ You can configure as many topics and sources as you like. If you add a new sourc
     }
 ]
 ```
-You can configure the blacklist with a list of forbidden keywords. If a colected article contains at least one of those keywords it will be ignored.
+You can configure the blacklist with a list of forbidden keywords. If a collected article contains at least one of those keywords it will be ignored.
 
 ```json
 "blacklist": ["Donald", "Football"]
