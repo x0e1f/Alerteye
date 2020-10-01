@@ -63,17 +63,20 @@ func StartCollector(dbPath string, configs *configs.Config) {
 					URL:         items[j].Link,
 				}
 
+				if isBlacklisted(configs, &alert) {
+					log.Print("(Blacklisted) " + alert.URL)
+					continue
+				}
+
 				if !sources[i].Filtered {
 					topic := common.Topic{
 						Name:     "",
 						Keywords: []string{},
 					}
-					
 					err = newAlert(dbPath, &alert, &topic)
 					if err != nil {
 						log.Print(err)
 					}
-
 					continue
 				}
 
@@ -81,7 +84,6 @@ func StartCollector(dbPath string, configs *configs.Config) {
 				if err != nil {
 					log.Print(err)
 				}
-
 				if topic != nil {
 					err = newAlert(dbPath, &alert, topic)
 					if err != nil {
@@ -110,10 +112,23 @@ func newAlert(dbPath string, alert *common.Alert, topic *common.Topic) error {
 			log.Print("(" + topic.Name + ") " + alert.URL)
 		} else {
 			log.Print("(Unfiltered) " + alert.URL)
-		}		
+		}
 	}
 
 	return nil
+}
+
+// isBlacklisted :: Check if alert contains some blacklisted keywords
+func isBlacklisted(configs *configs.Config, alert *common.Alert) bool {
+	blacklist := configs.Blacklist
+
+	for i := 0; i < len(blacklist); i++ {
+		if containsKeyword(alert.Title, alert.Description, blacklist[i]) {
+			return true
+		}
+	}
+
+	return false
 }
 
 // checkTopic :: Check if collected alert can be associated with a topic

@@ -41,7 +41,8 @@ import (
 // CollectorTime: Time interval for the collector (Minutes)
 // SendTime: Time interval for telegram sender (Minutes)
 // Topics: List of topics
-// Sources: LIst of sources
+// Sources: List of sources
+// Blacklist: Blacklist keywords
 type Config struct {
 	BotToken      string          `json:"telegram_bot_token"`
 	ChatID        string          `json:"telegram_chat_id"`
@@ -49,6 +50,7 @@ type Config struct {
 	SendTime      int             `json:"send_time"`
 	Topics        []common.Topic  `json:"topics"`
 	Sources       []common.Source `json:"sources"`
+	Blacklist     []string        `json:"blacklist"`
 }
 
 // LoadConfigurations :: Load configuration file
@@ -87,6 +89,8 @@ func initConfigurations(confFilePath string) error {
 		URL:      "https://www.aljazeera.com/xml/rss/all.xml",
 		Filtered: true,
 	}
+	blacklist := []string{}
+
 	config := Config{
 		BotToken:      "xxxx",
 		ChatID:        "xxxx",
@@ -94,9 +98,10 @@ func initConfigurations(confFilePath string) error {
 		SendTime:      30,
 		Topics:        []common.Topic{topic},
 		Sources:       []common.Source{source},
+		Blacklist:     blacklist,
 	}
 
-	configJSON, _ := json.MarshalIndent(config, "", "\t")
+	configJSON, _ := json.MarshalIndent(config, "", "    ")
 	configFile, err := os.OpenFile(
 		confFilePath,
 		os.O_CREATE|os.O_APPEND|os.O_WRONLY,
@@ -106,7 +111,6 @@ func initConfigurations(confFilePath string) error {
 		return err
 	}
 	defer configFile.Close()
-
 	configFile.Write(configJSON)
 
 	return nil
