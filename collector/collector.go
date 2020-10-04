@@ -168,7 +168,7 @@ func containsKeyword(title string, description string, keyword string) bool {
 	description = strings.ToLower(description)
 	keyword = strings.ToLower(keyword)
 
-	regex := "(\\w+)"
+	regex := "([^\\s]+)"
 	re := regexp.MustCompile(regex)
 
 	parsedTitle := re.FindAllString(title, -1)
