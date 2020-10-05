@@ -28,6 +28,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import (
+	"fmt"
 	"github.com/mmcdole/gofeed"
 	"github.com/x0e1f/Alerteye/common"
 	"github.com/x0e1f/Alerteye/configs"
@@ -168,20 +169,15 @@ func containsKeyword(title string, description string, keyword string) bool {
 	description = strings.ToLower(description)
 	keyword = strings.ToLower(keyword)
 
-	regex := "([^\\s]+)"
+	regex := fmt.Sprintf("\\b%s\\b", keyword)
 	re := regexp.MustCompile(regex)
 
-	parsedTitle := re.FindAllString(title, -1)
-	for i := 0; i < len(parsedTitle); i++ {
-		if parsedTitle[i] == keyword {
-			return true
-		}
+	if len(re.FindAllString(title, -1)) > 0 {
+		return true
 	}
-	parsedDesc := re.FindAllString(description, -1)
-	for i := 0; i < len(parsedDesc); i++ {
-		if parsedDesc[i] == keyword {
-			return true
-		}
+
+	if len(re.FindAllString(description, -1)) > 0 {
+		return true
 	}
 
 	return false
