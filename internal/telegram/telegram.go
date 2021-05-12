@@ -28,12 +28,13 @@ OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import (
-	"github.com/go-telegram-bot-api/telegram-bot-api"
-	"github.com/x0e1f/Alerteye/configs"
-	"github.com/x0e1f/Alerteye/database"
 	"log"
 	"strconv"
 	"time"
+
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
+	"github.com/x0e1f/Alerteye/internal/configs"
+	"github.com/x0e1f/Alerteye/internal/database"
 )
 
 // StartConsumer :: Start Alerteye Telegram consumer

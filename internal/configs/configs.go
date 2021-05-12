@@ -29,10 +29,11 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 import (
 	"encoding/json"
-	"github.com/x0e1f/Alerteye/common"
 	"io/ioutil"
 	"log"
 	"os"
+
+	"github.com/x0e1f/Alerteye/internal/common"
 )
 
 // Config :: Main configuration struct

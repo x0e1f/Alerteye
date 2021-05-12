@@ -29,14 +29,15 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 import (
 	"fmt"
-	"github.com/mmcdole/gofeed"
-	"github.com/x0e1f/Alerteye/common"
-	"github.com/x0e1f/Alerteye/configs"
-	"github.com/x0e1f/Alerteye/database"
 	"log"
 	"regexp"
 	"strings"
 	"time"
+
+	"github.com/mmcdole/gofeed"
+	"github.com/x0e1f/Alerteye/internal/common"
+	"github.com/x0e1f/Alerteye/internal/configs"
+	"github.com/x0e1f/Alerteye/internal/database"
 )
 
 // StartCollector :: Start Alerteye collector

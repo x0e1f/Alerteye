@@ -28,15 +28,16 @@ OTHER DEALINGS IN THE SOFTWARE.
 */
 
 import (
-	"github.com/x0e1f/Alerteye/collector"
-	"github.com/x0e1f/Alerteye/common"
-	"github.com/x0e1f/Alerteye/configs"
-	"github.com/x0e1f/Alerteye/database"
-	"github.com/x0e1f/Alerteye/telegram"
 	"io"
 	"log"
 	"os"
 	"path/filepath"
+
+	"github.com/x0e1f/Alerteye/internal/collector"
+	"github.com/x0e1f/Alerteye/internal/common"
+	"github.com/x0e1f/Alerteye/internal/configs"
+	"github.com/x0e1f/Alerteye/internal/database"
+	"github.com/x0e1f/Alerteye/internal/telegram"
 )
 
 func main() {
